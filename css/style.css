@@ -5,9 +5,7 @@ body {
 }
 
 
-thumbnail {
-	width:
-}
+
 
 #photoBooth {
 	margin-top: .2em;
@@ -37,7 +35,6 @@ thumbnail {
 	opacity: .8;
 	bottom: 10px;
 	left: 45%;
-	top: 0px;
 }
 
 .thumbnail {
