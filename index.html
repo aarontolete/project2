@@ -14,9 +14,8 @@
     <div id="slideShow">
       <div class="photoHolder">
         <img class="thumbnail" id="photo" src="welcome2.jpg" alt="Gallery Image"/>
-
       </div>
-      <img class="moreIndicator rot90" src="img/more.png" alt="More Content"/>
+      <img class="moreIndicator rot90" src="img/more.png" alt="More Content" onclick="toggleDetails()"/>
       <div id="nav">
         <img id="prevPhoto" class='rot180' src="img/arrow.png" alt="Previous Photo"/>
         <img id="nextPhoto" src="img/arrow.png" alt="Next Photo"/>
@@ -28,17 +27,17 @@
       </div>
 
     </div>
+	</div>
 		<script>
-		$( "#prevPhoto").click(function() {
+		$( "#prevPhoto" ).click(function() {
 			mCurrentIndex-=2;
 			swapPhoto();
 		});
 		</script>
 		<script>
-		$( "#prevPhoto").click(function() {
+		$( "#nextPhoto" ).click(function() {
 			swapPhoto();
 		});
 		</script>
-  </div>
 </body>
 </html>

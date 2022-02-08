@@ -34,7 +34,7 @@ function animate() {
 
 function swapPhoto() {
 
-  if(mCurrentIndex .= mImages.length)
+  if(mCurrentIndex >= mImages.length)
   {
     mCurrentIndex = 0;
   }
@@ -43,21 +43,16 @@ function swapPhoto() {
     mCurrentIndex = mImages.length-1;
   }
 
-document.getElementByID('photo').src = mImages[mCurrentIndex].img;
-var loc = document.getElementsByClassName('location');
-loc[0].innerHTML = "Location: " + mImages[mCurrentIndex].location;
-var des = document.getElementsByClassname('description');
-des [0].innerHTML = "Description: " + mImages[mCurrentIndex].description;
-var dt = document.getElementsByClassName('date');
-dt[0].innerHTML = "Date: " + mImages[mCurrentIndex].date;
+  document.getElementById('photo').src = mImages[mCurrentIndex].img;
+  var loc = document.getElementsByClassName('location');
+  loc[0].innerHTML = "Location: " + mImages[mCurrentIndex].location;
+  var des = document.getElementsByClassName('description');
+  des[0].innerHTML = "Description: " + mImages[mCurrentIndex].description;
+  var dt = document.getElementsByClassName('date');
+  dt[0].innerHTML = "Date: " + mImages[mCurrentIndex].date;
 
-mLastFrameTime = 0;
-mCurrentIndex += 1;
-
-}
-
-
-	console.log('swap photo');
+  mLastFrameTime = 0;
+  mCurrentIndex += 1;
 }
 
 function toggleDetails()
@@ -67,12 +62,13 @@ function toggleDetails()
     $(".moreIndicator").removeClass("rot90");
     $(".moreIndicator").addClass("rot270");
   }
-  else {
+  else{
     $(".moreIndicator").removeClass("rot270");
     $(".moreIndicator").addClass("rot90");
   }
   $(".details").slideToggle("slow", "linear");
 }
+
 // Counter for the mImages array
 var mCurrentIndex = 0;
 
@@ -87,22 +83,21 @@ var mJson;
 
 // URL for the JSON to load by default
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
-var mUrl = 'extra.json';
+var mUrl;
 
 function fetchJSON()
 {
-  mRequest.onreadystatechange = function() {
+  mRequest.onreadystatechange = function(){
     console.log("on ready state change");
-    if(this.readyState == 4 && this.status == 200) {
-      mJson = JSON.parse(mRequest.responseText);
+    if (this.readyState == 4 && this.status == 200) {
+      mjson = JSON.parse(mRequest.responseText);
       iterateJSON(mJson);
     }
   }
   mRequest.open("GET", mUrl, true);
   mRequest.send();
 }
-
-function iterateJSON(Json)
+function iterateJSON(mJson)
 {
   for( x = 0; x < mJson.images.length; x++)
   {
@@ -113,8 +108,7 @@ function iterateJSON(Json)
     mImages[x].img = mJson.images[x].imgPath;
   }
 }
-//You can optionally use the following function as your event callback for loading the source of Images from your json data (for HTMLImageObject).
-//@param A GalleryImage object. Use this method for an event handler for loading a gallery Image object (optional).
+
 function makeGalleryImageOnloadCallback(galleryImage) {
 	return function(e) {
 		galleryImage.img = e.target;
@@ -124,15 +118,17 @@ function makeGalleryImageOnloadCallback(galleryImage) {
 
 $(document).ready( function() {
 
-  $("#nextPhoto").position({
-    my: "right bottom",
-    at: "right bottom",
-    of: "#nav"
-  });
 	// This initially hides the photos' metadata information
 	//$('.details').eq(0).hide();
+    $( "#nextPhoto" ).position({
+  my: "right bottom" ,
+  at: "right bottom" ,
+  of: "#nav"
+  });
 
-  const urlParams = new URLSearchParams(window.location.search);
+
+
+const urlParas = new URLSearchParams(window.location.search);
 
   for (const [key, value] of urlParams) {
     console.log(`${key}:${value}`);
@@ -143,9 +139,9 @@ $(document).ready( function() {
     mUrl = 'images.json';
   }
 
-  fetchJSON();
-});
+fetchJSON();
 
+});
 
 
 window.addEventListener('load', function() {
@@ -155,13 +151,11 @@ window.addEventListener('load', function() {
 }, false);
 
 function GalleryImage() {
-	//implement me as an object to hold the following data about an image:
-	var location;
+  var location;
 
-	var description;
+  var description;
 
-	var date;
+  var date;
 
-	//4. either a String (src URL) or an an HTMLImageObject (bitmap of the photo. https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
   var img;
-}
+	}
