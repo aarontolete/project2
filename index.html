@@ -13,9 +13,9 @@
     <p class="banner">IS219 Slide Show</p>
     <div id="slideShow">
       <div class="photoHolder">
-        <img class="thumbnail" id="photo" src="welcome2.jpg" alt="Gallery Image"/>
+        <img class="thumbnail" id="photo" src="img\welcome.jpg" alt="Gallery Image"/>
+				<img class="moreIndicator rot90" src="img/more.png" alt="More Content" onclick="toggleDetails()"/>
       </div>
-      <img class="moreIndicator rot90" src="img/more.png" alt="More Content" onclick="toggleDetails()"/>
       <div id="nav">
         <img id="prevPhoto" class='rot180' src="img/arrow.png" alt="Previous Photo"/>
         <img id="nextPhoto" src="img/arrow.png" alt="Next Photo"/>
@@ -27,17 +27,19 @@
       </div>
 
     </div>
-	</div>
-		<script>
-		$( "#prevPhoto" ).click(function() {
-			mCurrentIndex-=2;
+  </div>
+
+	<script>
+		$("#prevPhoto").click(function() {
+		mCurrentIndex-=2;
+		swapPhoto();
+		});
+	</script>
+	<script>
+		$("#nextPhoto").click(function() {
 			swapPhoto();
 		});
-		</script>
-		<script>
-		$( "#nextPhoto" ).click(function() {
-			swapPhoto();
-		});
-		</script>
+	</script>
+
 </body>
 </html>

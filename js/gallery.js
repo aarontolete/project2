@@ -45,7 +45,7 @@ function swapPhoto() {
 
   document.getElementById('photo').src = mImages[mCurrentIndex].img;
   var loc = document.getElementsByClassName('location');
-  loc[0].innerHTML = "Location: " + mImages[mCurrentIndex].location;
+  loc[0].innerHTML = "Location:" + mImages[mCurrentIndex].location;
   var des = document.getElementsByClassName('description');
   des[0].innerHTML = "Description: " + mImages[mCurrentIndex].description;
   var dt = document.getElementsByClassName('date');
@@ -53,7 +53,8 @@ function swapPhoto() {
 
   mLastFrameTime = 0;
   mCurrentIndex += 1;
-}
+  }
+
 
 function toggleDetails()
 {
@@ -83,31 +84,32 @@ var mJson;
 
 // URL for the JSON to load by default
 // Some options for you are: images.json, images.short.json; you will need to create your own extra.json later
-var mUrl;
+var mUrl = 'image.json';
 
 function fetchJSON()
 {
-  mRequest.onreadystatechange = function(){
+  mRequest.onreadystatechange = function() {
     console.log("on ready state change");
-    if (this.readyState == 4 && this.status == 200) {
-      mjson = JSON.parse(mRequest.responseText);
+    if(this.readyState == 4 && this.status == 200) {
+      mJson = JSON.parse(mRequest.responseText);
       iterateJSON(mJson);
     }
   }
   mRequest.open("GET", mUrl, true);
   mRequest.send();
 }
-function iterateJSON(mJson)
-{
-  for( x = 0; x < mJson.images.length; x++)
+  function iterateJSON(mJson)
   {
-    mImages[x] = new GalleryImage();
-    mImages[x].location = mJson.images[x].imgLocation;
-    mImages[x].description = mJson.images[x].description;
-    mImages[x].date = mJson.images[x].date;
-    mImages[x].img = mJson.images[x].imgPath;
+    for( x = 0; x < mJson.images.length; x++ )
+    {
+      mImages[x] = new GalleryImage();
+      mImages[x].location = mJson.images[x].imgLocation;
+      mImages[x].description = mJson.images[x].description;
+      mImages[x].date = mJson.images[x].date;
+      mImages[x].img = mJson.images[x].imgPath;
+    }
   }
-}
+
 
 function makeGalleryImageOnloadCallback(galleryImage) {
 	return function(e) {
@@ -120,29 +122,28 @@ $(document).ready( function() {
 
 	// This initially hides the photos' metadata information
 	//$('.details').eq(0).hide();
-    $( "#nextPhoto" ).position({
-  my: "right bottom" ,
-  at: "right bottom" ,
-  of: "#nav"
-  });
+  $("#nextPhoto").position({
+    my: "right bottom",
+    at: "right bottom",
+    of: "#nav"
+});
 
 
 
-const urlParas = new URLSearchParams(window.location.search);
+const urlParams = new URLSearchParams(window.location.search);
 
-  for (const [key, value] of urlParams) {
-    console.log(`${key}:${value}`);
-    mUrl = value;
-  }
-  if(mUrl == undefined)
-  {
-    mUrl = 'images.json';
-  }
+for (const [key, value] of urlParams){
+  console.log(`${key}:${value}`);
+  mUrl = value;
+}
+if(mUrl == undefined)
+{
+  mUrl = 'image.json';
+}
 
 fetchJSON();
 
 });
-
 
 window.addEventListener('load', function() {
 
@@ -151,11 +152,11 @@ window.addEventListener('load', function() {
 }, false);
 
 function GalleryImage() {
-  var location;
+	var location;
 
   var description;
 
   var date;
 
   var img;
-	}
+}
